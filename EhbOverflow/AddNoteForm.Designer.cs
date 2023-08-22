@@ -30,6 +30,7 @@
             this.btnCancelAddNote = new System.Windows.Forms.Button();
             this.lblAddTitle = new System.Windows.Forms.Label();
             this.lblAddContent = new System.Windows.Forms.Label();
+            this.btnAttachImage = new System.Windows.Forms.Button();
             this.comboBoxCategories = new System.Windows.Forms.ComboBox();
             this.cmbCategories = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
@@ -92,6 +93,15 @@
             this.lblAddContent.TabIndex = 5;
             this.lblAddContent.Text = "Content:";
             // 
+            // btnAttachImage
+            // 
+            this.btnAttachImage.Location = new System.Drawing.Point(316, 522);
+            this.btnAttachImage.Name = "btnAttachImage";
+            this.btnAttachImage.Size = new System.Drawing.Size(167, 28);
+            this.btnAttachImage.TabIndex = 9;
+            this.btnAttachImage.Text = "Attach Image";
+            this.btnAttachImage.Click += new System.EventHandler(this.btnAttachImage_Click);
+            // 
             // comboBoxCategories
             // 
             this.comboBoxCategories.Location = new System.Drawing.Point(0, 0);
@@ -130,6 +140,7 @@
             this.Controls.Add(this.lblAddTitle);
             this.Controls.Add(this.lblAddContent);
             this.Controls.Add(this.cmbCategories);
+            this.Controls.Add(this.btnAttachImage);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "AddNoteForm";
             this.Text = "Add Note";
@@ -143,5 +154,6 @@
 
         private Label label1;
         private ComboBox cmbCategories;
+        private Button btnAttachImage;
     }
 }

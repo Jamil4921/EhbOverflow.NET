@@ -68,6 +68,15 @@ namespace EhbOverflow
                         lblCategory.Text = "Category: N/A";
                     }
                 }
+
+                if (!string.IsNullOrEmpty(selectedNote.ImagePath))
+                {
+                    pictureBox.Image = Image.FromFile(selectedNote.ImagePath);
+                }
+                else
+                {
+                    pictureBox.Image = null;
+                }
             }
         }
 
@@ -149,7 +158,7 @@ namespace EhbOverflow
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 FirstName = (string)reader["FirstName"],
                                 LastName = (string)reader["LastName"],
-                                //CategoryName = (string)reader["Category"],
+                                ImagePath = (string)reader["ImagePath"]
                                 
                             };
 

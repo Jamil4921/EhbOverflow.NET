@@ -25,8 +25,8 @@ namespace EhbOverflow
         public int CategoryId { get; set; } 
 
         [ForeignKey("CategoryId")]
-        public Categories Category { get; set; } 
+        public Categories Category { get; set; }
 
-        public string CategoryName { get; set; }
+        public string? ImagePath { get; set; }
     }
 }

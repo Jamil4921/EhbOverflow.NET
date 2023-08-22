@@ -6,6 +6,7 @@
         private ListBox listBoxNotes;
         private TextBox txtTitle;
         private TextBox txtContent;
+        private PictureBox pictureBox;
 
         protected override void Dispose(bool disposing)
         {
@@ -20,6 +21,7 @@
 
         private void InitializeComponent()
         {
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.listBoxNotes = new System.Windows.Forms.ListBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtContent = new System.Windows.Forms.TextBox();
@@ -33,7 +35,17 @@
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
             this.lblCategory = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.SuspendLayout();
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Location = new System.Drawing.Point(432, 323);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(482, 270);
+            this.pictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.pictureBox.TabIndex = 7;
+            this.pictureBox.TabStop = false;
             // 
             // listBoxNotes
             // 
@@ -67,7 +79,7 @@
             // 
             // btnAddNote
             // 
-            this.btnAddNote.Location = new System.Drawing.Point(308, 545);
+            this.btnAddNote.Location = new System.Drawing.Point(308, 616);
             this.btnAddNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnAddNote.Name = "btnAddNote";
             this.btnAddNote.Size = new System.Drawing.Size(133, 46);
@@ -78,7 +90,7 @@
             // btnEditNote
             // 
             this.btnEditNote.Enabled = false;
-            this.btnEditNote.Location = new System.Drawing.Point(460, 545);
+            this.btnEditNote.Location = new System.Drawing.Point(449, 616);
             this.btnEditNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEditNote.Name = "btnEditNote";
             this.btnEditNote.Size = new System.Drawing.Size(133, 46);
@@ -89,7 +101,7 @@
             // btnDeleteNote
             // 
             this.btnDeleteNote.Enabled = false;
-            this.btnDeleteNote.Location = new System.Drawing.Point(596, 545);
+            this.btnDeleteNote.Location = new System.Drawing.Point(590, 616);
             this.btnDeleteNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnDeleteNote.Name = "btnDeleteNote";
             this.btnDeleteNote.Size = new System.Drawing.Size(133, 46);
@@ -159,6 +171,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(991, 752);
+            this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.lblCategory);
             this.Controls.Add(this.lblFirstName);
             this.Controls.Add(this.lblLastName);
@@ -175,6 +188,7 @@
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NoteManagementForm";
             this.Text = "Note Management";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
