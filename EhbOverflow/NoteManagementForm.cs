@@ -158,7 +158,7 @@ namespace EhbOverflow
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 FirstName = (string)reader["FirstName"],
                                 LastName = (string)reader["LastName"],
-                                ImagePath = (string)reader["ImagePath"]
+                                //ImagePath = (string)reader["ImagePath"]
                                 
                             };
 
