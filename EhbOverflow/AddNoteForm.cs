@@ -19,48 +19,65 @@ namespace EhbOverflow
         {
             InitializeComponent();
             currentUser = user;
+
+            using (var context = new AppDbContext())
+            {
+                var categories = context.Categories.ToList();
+                cmbCategories.DataSource = categories;
+                cmbCategories.DisplayMember = "SubjectName";
+                cmbCategories.ValueMember = "CategoryId";
+            }
         }
+
+
+
+
+
 
         private void btnSaveAddNote_Click(object sender, EventArgs e)
         {
-            string title = txtAddTitle.Text.Trim(); // Remove leading and trailing spaces
+            string title = txtAddTitle.Text.Trim(); 
             string content = txtAddContent.Text.Trim();
 
             if (string.IsNullOrEmpty(title) || string.IsNullOrEmpty(content))
             {
                 MessageBox.Show("Please enter both a title and content for the note.");
-                return; // Don't proceed if validation fails
+                return; 
             }
 
-            // Perform validation if needed
 
-            // Create a new Note object with the entered title and content
-            Note newNote = new Note
+            if (cmbCategories.SelectedItem is Categories selectedCategory)
             {
-                Title = title,
-                Content = content,
-                CreatedDate = DateTime.Now,
-                User = currentUser,
-                UserId = currentUser.UserId,
-                FirstName = currentUser.FirstName,
-                LastName = currentUser.LastName
+                Note newNote = new Note
+                {
+                    Title = title,
+                    Content = content,
+                    CreatedDate = DateTime.Now,
+                    User = currentUser,
+                    UserId = currentUser.UserId,
+                    FirstName = currentUser.FirstName,
+                    LastName = currentUser.LastName,
+                    CategoryId = selectedCategory.CategoryId
 
 
-            };
+                };
 
-            InsertNoteIntoDatabase(newNote);
 
-            // Add the new note to the user's collection
-            currentUser.Notes.Add(newNote);
+                InsertNoteIntoDatabase(newNote);
 
-            // Indicate that the operation was successful
-            DialogResult = DialogResult.OK;
-            this.Close();
+                currentUser.Notes.Add(newNote);
+
+                DialogResult = DialogResult.OK;
+                this.Close();
+
+            }
+
+
+
         }
 
         private void btnCancelAddNote_Click(object sender, EventArgs e)
         {
-            // Close the AddNoteForm without making any changes
             this.Close();
         }
 
@@ -70,7 +87,8 @@ namespace EhbOverflow
             {
                 connection.Open();
 
-                string insertQuery = "INSERT INTO Notes (Title, Content, CreatedDate, UserId, FirstName, LastName) VALUES (@Title, @Content, @CreatedDate, @UserId, @FirstName, @LastName)";
+                string insertQuery = "INSERT INTO Notes (Title, Content, CreatedDate, UserId, FirstName, LastName, CategoryId) " +
+                                     "VALUES (@Title, @Content, @CreatedDate, @UserId, @FirstName, @LastName, @CategoryId)";
                 using (SqlCommand command = new SqlCommand(insertQuery, connection))
                 {
                     command.Parameters.AddWithValue("@Title", note.Title);
@@ -79,6 +97,7 @@ namespace EhbOverflow
                     command.Parameters.AddWithValue("@UserId", note.User.UserId);
                     command.Parameters.AddWithValue("@FirstName", note.User.FirstName);
                     command.Parameters.AddWithValue("@LastName", note.User.LastName);
+                    command.Parameters.AddWithValue("@CategoryId", note.CategoryId);
 
                     command.ExecuteNonQuery();
                 }

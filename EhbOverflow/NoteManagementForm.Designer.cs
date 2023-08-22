@@ -32,6 +32,7 @@
             this.txtCreatedDate = new System.Windows.Forms.TextBox();
             this.lblFirstName = new System.Windows.Forms.Label();
             this.lblLastName = new System.Windows.Forms.Label();
+            this.lblCategory = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // listBoxNotes
@@ -144,11 +145,21 @@
             this.lblLastName.TabIndex = 1;
             this.lblLastName.Text = "Last Name:";
             // 
+            // lblCategory
+            // 
+            this.lblCategory.AutoSize = true;
+            this.lblCategory.Location = new System.Drawing.Point(676, 280);
+            this.lblCategory.Name = "lblCategory";
+            this.lblCategory.Size = new System.Drawing.Size(69, 20);
+            this.lblCategory.TabIndex = 6;
+            this.lblCategory.Text = "Category";
+            // 
             // NoteManagementForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(991, 752);
+            this.Controls.Add(this.lblCategory);
             this.Controls.Add(this.lblFirstName);
             this.Controls.Add(this.lblLastName);
             this.Controls.Add(this.lblCreatedDate);
@@ -180,6 +191,7 @@
         private TextBox txtCreatedDate;
         private Label lblFirstName;
         private Label lblLastName;
+        private Label lblCategory;
     }
 
 }

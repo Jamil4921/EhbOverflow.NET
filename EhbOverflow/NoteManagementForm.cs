@@ -52,8 +52,22 @@ namespace EhbOverflow
                 lblFirstName.Text = selectedNote.FirstName;
                 lblLastName.Text = selectedNote.LastName;
 
+
                 btnEditNote.Enabled = selectedNote.User.UserId == currentUser.UserId;
                 btnDeleteNote.Enabled = selectedNote.User.UserId == currentUser.UserId;
+
+                using (var context = new AppDbContext())
+                {
+                    var category = context.Categories.FirstOrDefault(c => c.CategoryId == selectedNote.CategoryId);
+                    if (category != null)
+                    {
+                        lblCategory.Text = "Category: " + category.SubjectName;
+                    }
+                    else
+                    {
+                        lblCategory.Text = "Category: N/A";
+                    }
+                }
             }
         }
 
@@ -134,7 +148,9 @@ namespace EhbOverflow
                                 Content = (string)reader["Content"],
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 FirstName = (string)reader["FirstName"],
-                                LastName = (string)reader["LastName"]
+                                LastName = (string)reader["LastName"],
+                                //CategoryName = (string)reader["Category"],
+                                
                             };
 
                             int userId = (int)reader["UserId"];
