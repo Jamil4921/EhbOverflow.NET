@@ -52,8 +52,8 @@ namespace EhbOverflow
                 lblFirstName.Text = selectedNote.FirstName;
                 lblLastName.Text = selectedNote.LastName;
 
-                // Enable the "Edit" button only if the selected note is associated with the current user
                 btnEditNote.Enabled = selectedNote.User.UserId == currentUser.UserId;
+                btnDeleteNote.Enabled = selectedNote.User.UserId == currentUser.UserId;
             }
         }
 
@@ -74,7 +74,7 @@ namespace EhbOverflow
             {
                 Note selectedNote = currentUser.Notes[selectedIndex];
 
-                if (selectedNote.User.UserId == currentUser.UserId) // Check if the note belongs to the current user
+                if (selectedNote.User.UserId == currentUser.UserId) 
                 {
                     EditNoteForm editNoteForm = new EditNoteForm(selectedNote);
                     if (editNoteForm.ShowDialog() == DialogResult.OK)
@@ -89,6 +89,28 @@ namespace EhbOverflow
             }
         }
 
+        private void btnDeleteNote_Click(object sender, EventArgs e)
+        {
+            int selectedIndex = listBoxNotes.SelectedIndex;
+            if (selectedIndex >= 0 && selectedIndex < currentUser.Notes.Count)
+            {
+                Note selectedNote = currentUser.Notes[selectedIndex];
+
+                if (selectedNote.User.UserId == currentUser.UserId) 
+                {
+                    if (MessageBox.Show("Are you sure you want to delete this note?", "Confirm Deletion", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        DeleteNoteFromDatabase(selectedNote);
+                        currentUser.Notes.Remove(selectedNote);
+                        UpdateNoteList();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You can only delete your own notes.");
+                }
+            }
+        }
 
         private void LoadUserNotesFromDatabase()
         {
@@ -116,7 +138,6 @@ namespace EhbOverflow
                             };
 
                             int userId = (int)reader["UserId"];
-                            // Retrieve the associated user information separately
                             User associatedUser = GetUserFromDatabase(userId);
                             note.User = associatedUser;
 
@@ -157,6 +178,21 @@ namespace EhbOverflow
             }
 
             return user;
+        }
+
+        private void DeleteNoteFromDatabase(Note note)
+        {
+            using (SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\furqa\OneDrive - Erasmushogeschool Brussel\Documenten\EhbUsers.mdf;Integrated Security=True;Connect Timeout=30"))
+            {
+                connection.Open();
+
+                string deleteQuery = "DELETE FROM Notes WHERE NoteId = @NoteId";
+                using (SqlCommand command = new SqlCommand(deleteQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@NoteId", note.NoteId);
+                    command.ExecuteNonQuery();
+                }
+            }
         }
 
 

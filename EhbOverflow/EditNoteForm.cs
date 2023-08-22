@@ -25,7 +25,6 @@ namespace EhbOverflow
 
         private void btnSaveEditNote_Click(object sender, EventArgs e)
         {
-            // Update the note properties with edited values
             noteToUpdate.Title = txtEditTitle.Text.Trim();
             noteToUpdate.Content = txtEditContent.Text.Trim();
 

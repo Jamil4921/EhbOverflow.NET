@@ -20,12 +20,12 @@
 
         private void InitializeComponent()
         {
-            
             this.listBoxNotes = new System.Windows.Forms.ListBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtContent = new System.Windows.Forms.TextBox();
             this.btnAddNote = new System.Windows.Forms.Button();
             this.btnEditNote = new System.Windows.Forms.Button();
+            this.btnDeleteNote = new System.Windows.Forms.Button();
             this.lblTitle = new System.Windows.Forms.Label();
             this.lblContent = new System.Windows.Forms.Label();
             this.lblCreatedDate = new System.Windows.Forms.Label();
@@ -77,13 +77,24 @@
             // btnEditNote
             // 
             this.btnEditNote.Enabled = false;
-            this.btnEditNote.Location = new System.Drawing.Point(452, 545);
+            this.btnEditNote.Location = new System.Drawing.Point(460, 545);
             this.btnEditNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEditNote.Name = "btnEditNote";
             this.btnEditNote.Size = new System.Drawing.Size(133, 46);
             this.btnEditNote.TabIndex = 1;
             this.btnEditNote.Text = "Edit Note";
             this.btnEditNote.Click += new System.EventHandler(this.btnEditNote_Click);
+            // 
+            // btnDeleteNote
+            // 
+            this.btnDeleteNote.Enabled = false;
+            this.btnDeleteNote.Location = new System.Drawing.Point(596, 545);
+            this.btnDeleteNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.btnDeleteNote.Name = "btnDeleteNote";
+            this.btnDeleteNote.Size = new System.Drawing.Size(133, 46);
+            this.btnDeleteNote.TabIndex = 2;
+            this.btnDeleteNote.Text = "Delete Note";
+            this.btnDeleteNote.Click += new System.EventHandler(this.btnDeleteNote_Click);
             // 
             // lblTitle
             // 
@@ -149,6 +160,7 @@
             this.Controls.Add(this.txtContent);
             this.Controls.Add(this.txtTitle);
             this.Controls.Add(this.listBoxNotes);
+            this.Controls.Add(this.btnDeleteNote);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "NoteManagementForm";
             this.Text = "Note Management";
@@ -159,6 +171,7 @@
 
         private System.Windows.Forms.Button btnAddNote;
         private System.Windows.Forms.Button btnEditNote;
+        private Button btnDeleteNote;
         #endregion
 
         private Label lblTitle;
