@@ -45,15 +45,18 @@ namespace EhbOverflow
             int selectedIndex = listBoxNotes.SelectedIndex;
             if (selectedIndex >= 0 && selectedIndex < currentUser.Notes.Count)
             {
-                // Display the selected note's details in textboxes
                 Note selectedNote = currentUser.Notes[selectedIndex];
                 txtTitle.Text = selectedNote.Title;
                 txtContent.Text = selectedNote.Content;
                 txtCreatedDate.Text = selectedNote.CreatedDate.ToString();
                 lblFirstName.Text = selectedNote.FirstName;
-                lblLastName.Text =  selectedNote.LastName;
+                lblLastName.Text = selectedNote.LastName;
+
+                // Enable the "Edit" button only if the selected note is associated with the current user
+                btnEditNote.Enabled = selectedNote.User.UserId == currentUser.UserId;
             }
         }
+
 
         private void btnAddNote_Click(object sender, EventArgs e)
         {
@@ -71,27 +74,33 @@ namespace EhbOverflow
             {
                 Note selectedNote = currentUser.Notes[selectedIndex];
 
-                //EditNoteForm editNoteForm = new EditNoteForm(selectedNote);
-                //editNoteForm.ShowDialog();
-
-                // After the EditNoteForm is closed, update the note list
-                UpdateNoteList();
+                if (selectedNote.User.UserId == currentUser.UserId) // Check if the note belongs to the current user
+                {
+                    EditNoteForm editNoteForm = new EditNoteForm(selectedNote);
+                    if (editNoteForm.ShowDialog() == DialogResult.OK)
+                    {
+                        UpdateNoteList();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("You can only edit your own notes.");
+                }
             }
         }
 
+
         private void LoadUserNotesFromDatabase()
         {
-            currentUser.Notes.Clear(); 
+            currentUser.Notes.Clear();
 
-            using (SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\furqa\OneDrive - Erasmushogeschool Brussel\Documenten\EhbUsers.mdf;Integrated Security=True;Connect Timeout=30"))
+            using (SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\furqa\OneDrive - Erasmushogeschool Brussel\Documenten\EhbUsers.mdf"";Integrated Security=True;Connect Timeout=30"))
             {
                 connection.Open();
 
-                string selectQuery = "SELECT * FROM Notes WHERE UserId = @UserId";
+                string selectQuery = "SELECT * FROM Notes";
                 using (SqlCommand command = new SqlCommand(selectQuery, connection))
                 {
-                    command.Parameters.AddWithValue("@UserId", currentUser.UserId);
-
                     using (SqlDataReader reader = command.ExecuteReader())
                     {
                         while (reader.Read())
@@ -104,14 +113,50 @@ namespace EhbOverflow
                                 CreatedDate = (DateTime)reader["CreatedDate"],
                                 FirstName = (string)reader["FirstName"],
                                 LastName = (string)reader["LastName"]
-
                             };
 
-                            currentUser.Notes.Add(note); 
+                            int userId = (int)reader["UserId"];
+                            // Retrieve the associated user information separately
+                            User associatedUser = GetUserFromDatabase(userId);
+                            note.User = associatedUser;
+
+                            currentUser.Notes.Add(note);
                         }
                     }
                 }
             }
+        }
+
+
+        private User GetUserFromDatabase(int userId)
+        {
+            User user = null;
+
+            using (SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\furqa\OneDrive - Erasmushogeschool Brussel\Documenten\EhbUsers.mdf"";Integrated Security=True;Connect Timeout=30"))
+            {
+                connection.Open();
+
+                string selectQuery = "SELECT * FROM Users WHERE UserId = @UserId";
+                using (SqlCommand command = new SqlCommand(selectQuery, connection))
+                {
+                    command.Parameters.AddWithValue("@UserId", userId);
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            user = new User
+                            {
+                                UserId = (int)reader["UserId"],
+                                FirstName = (string)reader["FirstName"],
+                                LastName = (string)reader["LastName"],
+                            };
+                        }
+                    }
+                }
+            }
+
+            return user;
         }
 
 

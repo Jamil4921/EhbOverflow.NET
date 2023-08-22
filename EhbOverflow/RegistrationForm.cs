@@ -23,7 +23,7 @@ namespace EhbOverflow
             string firstName = txtFirstName.Text;
             string lastName = txtLastName.Text;
             string email = txtEmail.Text;
-            string password = txtPassword.Text; // Added password field
+            string password = txtPassword.Text; 
 
             using (SqlConnection connection = new SqlConnection(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=""C:\Users\furqa\OneDrive - Erasmushogeschool Brussel\Documenten\EhbUsers.mdf"";Integrated Security=True;Connect Timeout=30"))
             {
@@ -35,7 +35,7 @@ namespace EhbOverflow
                     command.Parameters.AddWithValue("@FirstName", firstName);
                     command.Parameters.AddWithValue("@LastName", lastName);
                     command.Parameters.AddWithValue("@Email", email);
-                    command.Parameters.AddWithValue("@Password", password); // Added password parameter
+                    command.Parameters.AddWithValue("@Password", password); 
 
                     command.ExecuteNonQuery();
                 }

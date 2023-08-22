@@ -20,6 +20,7 @@
 
         private void InitializeComponent()
         {
+            
             this.listBoxNotes = new System.Windows.Forms.ListBox();
             this.txtTitle = new System.Windows.Forms.TextBox();
             this.txtContent = new System.Windows.Forms.TextBox();
@@ -75,6 +76,7 @@
             // 
             // btnEditNote
             // 
+            this.btnEditNote.Enabled = false;
             this.btnEditNote.Location = new System.Drawing.Point(452, 545);
             this.btnEditNote.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.btnEditNote.Name = "btnEditNote";

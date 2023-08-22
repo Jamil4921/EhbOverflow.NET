@@ -39,17 +39,13 @@ namespace EhbOverflow
                     {
                         MessageBox.Show("Login successful!");
 
-                        // Retrieve the user's information from the database here, e.g., using a SELECT query
                         User loggedInUser = RetrieveUserInformation(email);
 
-                        // Close the current LoginForm
                         this.Hide();
 
-                        // Show NoteManagementForm and pass the logged-in user object
                         NoteManagementForm noteManagementForm = new NoteManagementForm(loggedInUser);
                         noteManagementForm.ShowDialog();
 
-                        // Close the application after NoteManagementForm is closed
                         Application.Exit();
                     }
                     else

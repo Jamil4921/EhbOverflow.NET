@@ -41,6 +41,7 @@ namespace EhbOverflow
                 Content = content,
                 CreatedDate = DateTime.Now,
                 User = currentUser,
+                UserId = currentUser.UserId,
                 FirstName = currentUser.FirstName,
                 LastName = currentUser.LastName
 
@@ -83,6 +84,7 @@ namespace EhbOverflow
                 }
             }
         }
+
 
 
     }
